@@ -1,0 +1,6 @@
+@MaselaTea_HostAddress = http://localhost:5199
+
+GET {{MaselaTea_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
