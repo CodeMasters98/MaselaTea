@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Notification.API.Contracts;
 using Notification.API.Dtos;
 using System.Net.Mime;
 
@@ -8,6 +9,11 @@ namespace Notification.API.Controller;
 
 public class NotificationController : BaseController
 {
+    private readonly INotificationService _notificationService;
+    public NotificationController(INotificationService notificationService)
+    {
+        _notificationService = notificationService;
+    }
 
     [HttpPost]
     [Route("Send")]
@@ -22,6 +28,7 @@ public class NotificationController : BaseController
             NotficationType = dto.NotficationType,
             Reciever =dto.Reciever,
         };
+        _notificationService.Add(notification);
         return true;
     }
 }
