@@ -5,6 +5,7 @@
         NONE = 0,
         RED = 1,
         GREEN = 2,
-        BLACK = 3
+        BLACK = 3,
+        XXXX = 4
     }
 }

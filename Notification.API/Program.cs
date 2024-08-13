@@ -1,18 +1,19 @@
-using Notification.API.Contracts;
-using Notification.API.Services;
+using Microsoft.EntityFrameworkCore;
+using Notification.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddControllers();
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+string connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext");
+if (string.IsNullOrEmpty(connectionString))
+    Console.WriteLine("Connection string is null or empty!");
 
-builder.Services.AddTransient<IReportService, ReportService>();
-builder.Services.AddTransient<INotificationService, NotificationService>();
+builder.Services
+    .AddEndpointsApiExplorer()
+    .AddSwaggerGen()
+    .AddInfrastructure(connectionString)
+    .AddApplicationServices();
 
 var app = builder.Build();
 
