@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Notification.Application.Contracts;
 using Notification.Infrastructure.Presistance;
+using Notification.Infrastructure.Presistance.Repositories;
 
 namespace Notification.Infrastructure;
 
@@ -12,6 +14,11 @@ public static class ConfigureServices
         {
             options.UseSqlServer(connectionString);
         });
+
+        services.AddTransient<IReportRepository, ReportRepository>();
+        services.AddTransient<INotificationRepository, NotificationRepository>();
+
+
         return services;
     }
 }
