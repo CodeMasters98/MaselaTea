@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Notification.API.Contracts;
-using Notification.API.Dtos;
+using Notification.Application.Contracts;
+using Notification.Application.Dtos;
 using System.Net.Mime;
 
-using Model = Notification.API.Models;
+using Model = Notification.Domain.Entities;
 
 namespace Notification.API.Controller;
 
 public class NotificationController : BaseController
 {
-    private readonly INotificationService _notificationService;
-    public NotificationController(INotificationService notificationService)
+    private readonly INotificationRepository _notificationRepository;
+    public NotificationController(INotificationRepository notificationRepository)
     {
-        _notificationService = notificationService;
+        _notificationRepository = notificationRepository;
     }
 
     [HttpPost]
@@ -22,13 +22,13 @@ public class NotificationController : BaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public bool Send([FromBody] SendNotificationDto dto)
     {
-        var notification = new Models.Notification()
+        var notification = new Model.Notification()
         {
             Message = dto.Message,
             NotficationType = dto.NotficationType,
             Reciever =dto.Reciever,
         };
-        _notificationService.Add(notification);
+        _notificationRepository.Add(notification);
         return true;
     }
 }

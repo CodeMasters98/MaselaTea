@@ -1,31 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Notification.API.Contracts;
-using Notification.API.Models;
-using Notification.API.Services;
+using Notification.Application.Contracts;
 
 namespace Notification.API.Controller;
 
 public class ReportController : BaseController
 {
-    //Dependancy Injection Pattern
-
-    private readonly IReportService _reportService;
-    public ReportController(IReportService reportService)
+    private readonly IReportRepository _reportRepository;
+    public ReportController(IReportRepository reportRepository)
     {
-        _reportService = reportService;
+        _reportRepository = reportRepository;
     }
 
     [HttpGet]
     [Route("Get")]
     public IActionResult Get()
     {
-        //Database
-        //Log
-        //Extrenal Service
-        //Step1
-        //ReportService service = new ReportService();
-
-
-        return Ok(_reportService.GetReport());
+        return Ok(_reportRepository.GetReport());
     }
 }

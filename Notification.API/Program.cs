@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Notification.Application;
+using Notification.Infrastructure;
 using Notification.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,10 +12,9 @@ if (string.IsNullOrEmpty(connectionString))
     Console.WriteLine("Connection string is null or empty!");
 
 builder.Services
-    .AddEndpointsApiExplorer()
-    .AddSwaggerGen()
+    .AddSwagger()
     .AddInfrastructure(connectionString)
-    .AddApplicationServices();
+    .AddApplication();
 
 var app = builder.Build();
 

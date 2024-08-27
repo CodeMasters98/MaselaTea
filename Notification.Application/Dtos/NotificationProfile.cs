@@ -1,4 +1,4 @@
-﻿namespace Notification.API.Dtos;
+﻿namespace Notification.Application.Dtos;
 
 public class NotificationProfile : AutoMapper.Profile
 {

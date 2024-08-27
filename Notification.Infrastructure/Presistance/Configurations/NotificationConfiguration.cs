@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
-namespace Notification.API.Configurations;
+namespace Notification.Infrastructure.Presistance.Configurations;
 
 public class NotificationConfiguration : IEntityTypeConfiguration<NotificationConfiguration>
 {
@@ -12,3 +12,4 @@ public class NotificationConfiguration : IEntityTypeConfiguration<NotificationCo
         //relatio fixup
     }
 }
+

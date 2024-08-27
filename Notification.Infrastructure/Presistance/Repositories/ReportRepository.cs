@@ -1,9 +1,9 @@
-﻿using Notification.API.Contracts;
-using Notification.API.Models;
+﻿using Notification.Application.Contracts;
+using Notification.Domain.Entities;
 
-namespace Notification.API.Services;
+namespace Notification.Infrastructure.Presistance.Repositories;
 
-public class ReportService : IReportService
+public class ReportRepository: IReportRepository
 {
     public List<Report> GetReport()
     {

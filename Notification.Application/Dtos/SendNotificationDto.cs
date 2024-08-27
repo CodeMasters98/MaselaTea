@@ -1,8 +1,8 @@
 ﻿#nullable disable
 
-using Notification.API.Enums;
+using Notification.Domain.Enums;
 
-namespace Notification.API.Dtos;
+namespace Notification.Application.Dtos;
 
 public class SendNotificationDto
 {

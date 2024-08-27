@@ -1,4 +1,4 @@
-﻿namespace Notification.API.Enums;
+﻿namespace Notification.Domain.Enums;
 
 public enum NotficationType
 {

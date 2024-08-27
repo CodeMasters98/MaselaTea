@@ -1,10 +1,7 @@
-﻿#nullable disable
+﻿
+namespace Notification.Domain.Entities;
 
-using Notification.API.Shared;
-
-namespace Notification.API.Models;
-
-[Entity]
+//[Entity]
 public class Report
 {
     public int Id { get; set; }
