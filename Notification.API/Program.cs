@@ -2,18 +2,21 @@ using Microsoft.EntityFrameworkCore;
 using Notification.Application;
 using Notification.Infrastructure;
 using Notification.API.Extensions;
+using Notification.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-string connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext");
-if (string.IsNullOrEmpty(connectionString))
+string notificationConnectionString = builder.Configuration.GetConnectionString("ApplicationDbContext") ?? string.Empty;
+string identityConnectionString = builder.Configuration.GetConnectionString("IdentityDbContext") ?? string.Empty;
+if (string.IsNullOrEmpty(notificationConnectionString))
     Console.WriteLine("Connection string is null or empty!");
 
 builder.Services
     .AddSwagger()
-    .AddInfrastructure(connectionString)
+    .AddInfrastructure(notificationConnectionString)
+    .AddIdentityInfrastructure(identityConnectionString)
     .AddApplication();
 
 var app = builder.Build();

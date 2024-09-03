@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Notification.Application\Notification.Application.csproj" />
+    <ProjectReference Include="..\Notification.Infrastructure.Identity\Notification.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\Notification.Infrastructure\Notification.Infrastructure.csproj" />
   </ItemGroup>
 
