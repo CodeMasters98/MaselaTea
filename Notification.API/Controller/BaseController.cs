@@ -3,7 +3,7 @@
 namespace Notification.API.Controller;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/api/v{v:apiVersion}/[controller]")]
 public class BaseController : ControllerBase
 {
     
