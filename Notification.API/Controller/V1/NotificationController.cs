@@ -5,7 +5,7 @@ using System.Net.Mime;
 
 using Model = Notification.Domain.Entities;
 
-namespace Notification.API.Controller;
+namespace Notification.API.Controller.V1;
 
 public class NotificationController : BaseController
 {
@@ -26,7 +26,7 @@ public class NotificationController : BaseController
         {
             Message = dto.Message,
             NotficationType = dto.NotficationType,
-            Reciever =dto.Reciever,
+            Reciever = dto.Reciever,
         };
         _notificationRepository.Add(notification);
         return true;
