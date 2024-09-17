@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Notification.Application.Contracts;
 using Notification.Application.Dtos;
 using System.Net.Mime;
@@ -15,6 +16,7 @@ public class NotificationController : BaseController
         _notificationRepository = notificationRepository;
     }
 
+    [Authorize]
     [HttpPost]
     [Route("Send")]
     [Consumes(MediaTypeNames.Application.Json)]
