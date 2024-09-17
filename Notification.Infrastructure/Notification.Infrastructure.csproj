@@ -19,4 +19,9 @@
     <ProjectReference Include="..\Notification.Application\Notification.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BackgroundServices\" />
+    <Folder Include="Presistance\HealthChecks\" />
+  </ItemGroup>
+
 </Project>
