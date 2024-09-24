@@ -1,6 +1,7 @@
 ﻿using Entites = Notification.Domain.Entities;
 
 using Notification.Application.Contracts;
+using Notification.Domain.Entities;
 
 namespace Notification.Infrastructure.Presistance.Repositories;
 

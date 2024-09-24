@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Notification.Application.Contracts;
 using Notification.Application.Dtos;
+using Notification.Application.Usecases.Notification;
 using System.Net.Mime;
 
 using Model = Notification.Domain.Entities;
@@ -10,27 +11,12 @@ namespace Notification.API.Controller.V1;
 
 public class NotificationController : BaseController
 {
-    private readonly INotificationRepository _notificationRepository;
-    public NotificationController(INotificationRepository notificationRepository)
-    {
-        _notificationRepository = notificationRepository;
-    }
-
-    [Authorize]
+    //[Authorize]
     [HttpPost]
     [Route("Send")]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public bool Send([FromBody] SendNotificationDto dto)
-    {
-        var notification = new Model.Notification()
-        {
-            Message = dto.Message,
-            NotficationType = dto.NotficationType,
-            Reciever = dto.Reciever,
-        };
-        _notificationRepository.Add(notification);
-        return true;
-    }
+    public async Task<IActionResult> Send([FromBody] AddNotificationCommand command, CancellationToken ct = default)
+        => await SendAsync<int>(command, ct);
 }
