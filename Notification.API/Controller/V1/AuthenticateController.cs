@@ -1,17 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Notification.Application.Usecases.Authenticate;
 
-namespace Notification.API.Controller.V1
+namespace Notification.API.Controller.V1;
+
+public class AuthenticateController : BaseController
 {
-    public class AuthenticateController : BaseController
-    {
-        public IActionResult Login()
-        {
-            return Ok();
-        }
+    public async Task<IActionResult> Login(LoginCommand command,CancellationToken ct)
+        => await SendAsync<bool>(command, ct);
 
-        public IActionResult Register()
-        {
-            return Ok();
-        }
-    }
+    public async Task<IActionResult> Register(RegisterCommand command,CancellationToken ct)
+        => await SendAsync<bool>(command, ct);
 }
