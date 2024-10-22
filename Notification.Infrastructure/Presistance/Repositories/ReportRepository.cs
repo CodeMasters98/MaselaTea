@@ -3,19 +3,9 @@ using Notification.Domain.Entities;
 
 namespace Notification.Infrastructure.Presistance.Repositories;
 
-public class ReportRepository: IReportRepository
+public class ReportRepository : GenericRepository<Report>, IReportRepository
 {
-    public List<Report> GetReport()
+    public ReportRepository(AppDbContext appDbContext) : base(appDbContext)
     {
-        List<Report> reports = new List<Report>()
-        {
-            new Report()
-            {
-                Count = 2,
-                Name = "test",
-                Price  = 140
-            }
-        };
-        return reports;
     }
 }

@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Notification.Application.Contracts;
-using Notification.Application.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
 using Notification.Application.Usecases.Notification;
 using System.Net.Mime;
-
-using Model = Notification.Domain.Entities;
 
 namespace Notification.API.Controller.V1;
 
