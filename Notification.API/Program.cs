@@ -1,20 +1,37 @@
 using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
+using Notification.Application;
+using Notification.Infrastructure;
 using Notification.API.Extensions;
+using Notification.Infrastructure.Identity;
+using Serilog;
+using Prometheus;
+using Notification.API.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+// Add serilog services to the container and read config from appsettings
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
-string connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext");
-if (string.IsNullOrEmpty(connectionString))
+string notificationConnectionString = builder.Configuration.GetConnectionString("ApplicationDbContext") ?? string.Empty;
+
+builder.Services.AddControllers();
+builder.Services.AddHealthChecks()
+    .AddSqlServer(notificationConnectionString)
+    .AddCheck<SampleHealthCheck>("Sample");
+
+builder.Services.UseHttpClientMetrics();
+
+string identityConnectionString = builder.Configuration.GetConnectionString("IdentityDbContext") ?? string.Empty;
+if (string.IsNullOrEmpty(notificationConnectionString))
     Console.WriteLine("Connection string is null or empty!");
 
 builder.Services
-    .AddEndpointsApiExplorer()
-    .AddSwaggerGen()
-    .AddInfrastructure(connectionString)
-    .AddApplicationServices();
+    .AddSwagger()
+    .AddInfrastructure(notificationConnectionString)
+    .AddIdentityInfrastructure(identityConnectionString, builder.Configuration)
+    .AddApplication();
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -34,6 +51,8 @@ builder.Services.AddApiVersioning(options =>
 
 var app = builder.Build();
 
+app.UseSerilogRequestLogging();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -44,5 +63,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.MapHealthChecks("/healthz");
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 app.Run();
