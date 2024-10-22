@@ -5,7 +5,7 @@ using Notification.Application.Wrappers;
 namespace Notification.API.Controller;
 
 [ApiController]
-[Route("/Api/V1/[controller]")]
+[Route("/api/v{v:apiVersion}/[controller]")]
 public class BaseController : ControllerBase
 {
     private ISender _mediator;
