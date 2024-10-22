@@ -2,9 +2,7 @@
 
 namespace Notification.Application.Contracts;
 
-public interface INotificationRepository
+public interface INotificationRepository : IGenericRepository<Entities.Notification>
 {
-    List<Entities.Notification> GetAll();
-
-    bool Add(Entities.Notification notification);
+   
 }

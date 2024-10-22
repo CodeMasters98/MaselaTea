@@ -2,7 +2,6 @@
 
 namespace Notification.Application.Contracts;
 
-public interface IReportRepository
+public interface IReportRepository: IGenericRepository<Report>
 {
-    List<Report> GetReport();
 }
