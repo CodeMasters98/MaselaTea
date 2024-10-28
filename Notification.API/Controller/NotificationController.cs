@@ -14,7 +14,7 @@ public class NotificationController : BaseController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Send([FromBody] AddNotificationCommand command, CancellationToken ct = default)
-        => await SendAsync<int>(command, ct);
+        => await SendAsync<bool>(command, ct);
 
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
