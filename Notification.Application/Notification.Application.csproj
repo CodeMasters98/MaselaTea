@@ -7,10 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Wrappers\NewFolder\**" />
+    <EmbeddedResource Remove="Wrappers\NewFolder\**" />
+    <None Remove="Wrappers\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FluentValidation" Version="11.10.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
     <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
   </ItemGroup>
 
@@ -20,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Usecases\Authenticate\Queries\" />
-    <Folder Include="Wrappers\NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -1,26 +1,34 @@
 ﻿using FluentValidation;
 using MediatR;
 using Notification.Application.Wrappers;
+using System.ComponentModel.DataAnnotations;
 
 namespace Notification.Application.Behaviors;
-public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? validator) :
+public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>>? validators) :
     IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
-    where TResponse : Response<TResponse>
 {
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-        if (validationResult is null) 
+        if (!validators.Any())
             return await next();
 
-        if (validationResult.IsValid) 
+        var context = new ValidationContext<TRequest>(request);
+        var validationResults = await Task.WhenAll(
+            validators.Select(v => v.ValidateAsync(context, cancellationToken))
+        );
+
+        var failures = validationResults
+            .SelectMany(result => result.Errors)
+            .Where(f => f != null)
+            .ToList();
+
+        if (failures.Count == 0)
             return await next();
 
-
-        var errors = validationResult.Errors;
-        throw new ValidationException(errors);
+        var errorMessages = failures.Select(f => f.ErrorMessage).ToList();
+        throw new FluentValidation.ValidationException(failures);   
     }
 }
+

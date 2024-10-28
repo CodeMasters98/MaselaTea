@@ -14,8 +14,9 @@ public static class ConfigureServices
 
         var assembly = typeof(ConfigureServices).Assembly;
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(assembly));
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         return services;
     }
 }
