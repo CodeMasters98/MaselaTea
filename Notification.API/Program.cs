@@ -7,6 +7,8 @@ using Notification.Infrastructure.Identity;
 using Serilog;
 using Prometheus;
 using Notification.API.HealthChecks;
+using Notification.Infrastructure.Seeding;
+using Notification.Infrastructure.Presistance;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +58,12 @@ builder.Services.AddApiVersioning(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    SeedData.Seed(dbContext);
+}
 
 app.UseSerilogRequestLogging();
 
