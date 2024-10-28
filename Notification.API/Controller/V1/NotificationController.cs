@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Notification.Application.Usecases.Notification;
+using Model = Notification.Domain.Entities;
 using System.Net.Mime;
 
 namespace Notification.API.Controller.V1;
@@ -27,5 +28,5 @@ public class NotificationController : BaseController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAll(CancellationToken ct = default)
-        => await SendAsync<int>(new GetAllNotificationQuery(), ct);
+        => await SendAsync<List<Model.Notification>>(new GetAllNotificationQuery(), ct);
 }
