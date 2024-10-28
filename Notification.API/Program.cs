@@ -33,6 +33,12 @@ builder.Services
     .AddIdentityInfrastructure(identityConnectionString, builder.Configuration)
     .AddApplication();
 
+builder.Services.AddProblemDetails(
+    options => options.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Extensions["traceId"] = context.HttpContext.TraceIdentifier;
+    });
+
 builder.Services.AddApiVersioning(options =>
 {
     options.DefaultApiVersion = new ApiVersion(1);
