@@ -12,7 +12,8 @@ public static class ConfigureServices
     {
         services.AddDbContext<AppDbContext>((options) =>
         {
-            options.UseSqlServer(connectionString);
+            //options.UseSqlServer(connectionString);
+            options.UseInMemoryDatabase("DB");
         });
 
         services.AddTransient<IReportRepository, ReportRepository>();
