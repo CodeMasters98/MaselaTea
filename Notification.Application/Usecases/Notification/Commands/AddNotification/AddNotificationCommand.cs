@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿    using MediatR;
 using Notification.Application.Wrappers;
 using Notification.Domain.Enums;
 
