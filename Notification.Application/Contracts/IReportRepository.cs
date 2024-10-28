@@ -5,3 +5,4 @@ namespace Notification.Application.Contracts;
 public interface IReportRepository: IGenericRepository<Report>
 {
 }
+    

@@ -15,6 +15,7 @@ public class ReportController : BaseController
     [Route("Get")]
     public IActionResult Get()
     {
-        return Ok(_reportRepository.GetReport());
+        throw new NotImplementedException();
+        //return Ok(_reportRepository.GetReport());
     }
 }
