@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Notification.Application.Contracts;
 
-namespace Notification.API.Controller.V1;
+namespace Notification.API.Controller;
 
 public class ReportController : BaseController
 {
