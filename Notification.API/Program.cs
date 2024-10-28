@@ -29,7 +29,7 @@ if (string.IsNullOrEmpty(notificationConnectionString))
 
 builder.Services
     .AddSwagger()
-    .AddInfrastructure(notificationConnectionString)
+    .AddInfrastructure(notificationConnectionString, builder.Configuration)
     .AddIdentityInfrastructure(identityConnectionString, builder.Configuration)
     .AddApplication();
 
