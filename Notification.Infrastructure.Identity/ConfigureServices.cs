@@ -7,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Notification.Application.Contracts;
 using Notification.Domain.Settings;
+using Notification.Infrastructure.Identity.Services;
 using System.Text;
 
 namespace Notification.Infrastructure.Identity;
@@ -90,7 +92,7 @@ public static class ConfigureServices
                     },
                 };
             });
-
+        services.AddTransient<IAccountService, AccountService>();
 
         return services;
     }
