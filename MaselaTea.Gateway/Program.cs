@@ -5,7 +5,6 @@ builder.Services.AddReverseProxy()
 
 var app = builder.Build();
 
-
 app.UseHttpsRedirection();
 
 app.MapReverseProxy();

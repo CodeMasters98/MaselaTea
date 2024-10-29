@@ -1,9 +1,9 @@
 ﻿
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Notification.Application.Wrappers;
 
 namespace Notification.Application.Behaviors;
+
 public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull, IRequest<TResponse>
 {

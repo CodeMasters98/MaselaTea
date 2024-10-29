@@ -17,6 +17,13 @@ public class GenericRepository<T> : IGenericRepository<T>
         return true;
     }
 
+    public bool AddRange(List<T> items)
+    {
+        _appDbContext.Set<T>().AddRange(items);
+        _appDbContext.SaveChanges();
+        return true;
+    }
+
     public bool Delete(T item)
     {
         throw new NotImplementedException();

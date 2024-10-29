@@ -1,10 +1,10 @@
 ﻿
-using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.Extensions.Caching.Distributed;
 using Notification.Application.Contracts;
 using System.Text.Json;
 
 namespace Notification.Infrastructure.Caching;
+
 public class RedisCacheService(IDistributedCache cache) 
     : IRedisCacheService
 {
@@ -12,7 +12,7 @@ public class RedisCacheService(IDistributedCache cache)
     public T? GetData<T>(string key)
     {
         var data =  cache.GetString(key);
-        if (data == null)
+        if (data is null)
             return default(T);
 
         return JsonSerializer.Deserialize<T>(data);
