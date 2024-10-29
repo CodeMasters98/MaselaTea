@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Notification.Application.Usecases.Notification;
+using Model = Notification.Domain.Entities;
 using System.Net.Mime;
 
-namespace Notification.API.Controller.V1;
+namespace Notification.API.Controller;
 
 public class NotificationController : BaseController
 {
@@ -13,7 +14,7 @@ public class NotificationController : BaseController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Send([FromBody] AddNotificationCommand command, CancellationToken ct = default)
-        => await SendAsync<int>(command, ct);
+        => await SendAsync<bool>(command, ct);
 
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -27,5 +28,5 @@ public class NotificationController : BaseController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAll(CancellationToken ct = default)
-        => await SendAsync<int>(new GetAllNotificationQuery(), ct);
+        => await SendAsync(new GetAllNotificationQuery(), ct);
 }

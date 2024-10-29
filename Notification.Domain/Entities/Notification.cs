@@ -14,6 +14,6 @@ public class Notification : BaseEntity<long>
     public string Message { get; set; }
     public string Reciever { get; set; }
     public NotficationType NotficationType { get; set; }
-    public int CreatedByUserId { get; set; }
-    public Price Price { get; set; }
+    public int? CreatedByUserId { get; set; }
+    //public Price? Price { get; set; }
 }
