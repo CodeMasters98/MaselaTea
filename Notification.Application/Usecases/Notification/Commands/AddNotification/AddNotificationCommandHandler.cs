@@ -5,7 +5,8 @@ using Models = Notification.Domain.Entities;
 
 namespace Notification.Application.Usecases.Notification;
 
-public class AddNotificationCommandHandler(INotificationRepository notificationRepository) : IRequestHandler<AddNotificationCommand, Response<bool>>
+public class AddNotificationCommandHandler(INotificationRepository notificationRepository, IRedisCacheService cacheService) 
+    : IRequestHandler<AddNotificationCommand, Response<bool>>
 {
     public async Task<Response<bool>> Handle(AddNotificationCommand request, CancellationToken cancellationToken)
     {
@@ -17,6 +18,8 @@ public class AddNotificationCommandHandler(INotificationRepository notificationR
             
         };
         var isAdded = notificationRepository.Add(notification);
-        return new Response<bool>(isAdded);
+        if (isAdded)
+            cacheService.RemoveDataAsync("notifications", cancellationToken);
+        return new Response<bool>(isAdded, "Successfully added");
     }
 }

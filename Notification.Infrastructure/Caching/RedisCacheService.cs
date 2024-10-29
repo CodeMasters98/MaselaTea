@@ -18,6 +18,25 @@ public class RedisCacheService(IDistributedCache cache)
         return JsonSerializer.Deserialize<T>(data);
     }
 
+    public async Task<T?> GetDataAsync<T>(string key, CancellationToken ct = default)
+    {
+        var data = await cache.GetStringAsync(key, ct);
+        if (data == null)
+            return default(T);
+
+        return JsonSerializer.Deserialize<T>(data);
+    }
+
+    public void RemoveData(string key)
+    {
+        cache.Remove(key);
+    }
+
+    public async Task RemoveDataAsync(string key, CancellationToken ct = default)
+    {
+        await cache.RemoveAsync(key, ct);
+    }
+
     public void SetData<T>(string key, T data)
     {
         var options = new DistributedCacheEntryOptions
@@ -25,6 +44,14 @@ public class RedisCacheService(IDistributedCache cache)
             AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
         };
         cache.SetString(key, JsonSerializer.Serialize(data), options);
-        throw new NotImplementedException();
+    }
+
+    public async Task SetDataAsync<T>(string key, T data, CancellationToken ct = default)
+    {
+        var options = new DistributedCacheEntryOptions
+        {
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5),
+        };
+        await cache.SetStringAsync(key, JsonSerializer.Serialize(data), options, ct);
     }
 }

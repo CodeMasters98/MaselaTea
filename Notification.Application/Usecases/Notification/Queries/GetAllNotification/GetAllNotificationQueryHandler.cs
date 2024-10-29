@@ -10,7 +10,7 @@ public class GetAllNotificationQueryHandler(INotificationRepository notification
 {
     public async Task<Response<List<Models.Notification>>> Handle(GetAllNotificationQuery request, CancellationToken cancellationToken)
     {
-        List<Models.Notification> notifications = cache.GetData<List<Models.Notification>>("notifications");
+        List<Models.Notification> notifications = await cache.GetDataAsync<List<Models.Notification>>("notifications");
         if (notifications is not null)
             return new Response<List<Models.Notification>>(notifications);
 
